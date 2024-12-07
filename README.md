@@ -1,6 +1,6 @@
 # 💻 Demo Web App Project
 
-Welcome to the **Coffee Shop Web App**! This project is designed to help you learn the fundamentals of **ReactJS**, **ExpressJS**, **MySQL**, and **PassportJS** with local authentication and OAuth.
+Welcome to the **Demo Web App**! This project is designed to help you learn the fundamentals of **ReactJS**, **ExpressJS**, **MySQL**, and **PassportJS** with local authentication and OAuth.
 
 ## 📚 Project Purpose
 
