@@ -24,32 +24,36 @@ app.use(morgan('dev'))
 
 
 
-// CONFIGURE CORS
-app.use(cors({
-  origin: [( process.env.FRONTEND_URL ?? "http://localhost:5173"), ( `${process.env.FRONTEND_URL}/*` ?? "http://localhost:5173/*")],
-  credentials: true,
-  methods: "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-  allowedHeaders: "Authorization, Content-Type",
-}))
+const allowedOrigins = [
+  process.env.FRONTEND_URL ?? "http://localhost:5173",
+];
 
-app.options("*", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", [( process.env.FRONTEND_URL ?? "http://localhost:5173"), ( `${process.env.FRONTEND_URL}/*` ?? "http://localhost:5173/*")]
+// Dynamic CORS configuration
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true); // Origin is allowed
+      } else {
+        callback(new Error("Not allowed by CORS")); // Origin is not allowed
+      }
+    },
+    credentials: true,
+    methods: "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+    allowedHeaders: "Authorization, Content-Type",
+  })
 );
+
+// Options request handler for preflight
+app.options("*", (req, res) => {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.sendStatus(200);
-})
-app.use(cookieParser())
-app.use(expressSession({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    secure: false,
-    httpOnly: false,
-    maxAge: 60 * 60 * 1000 //dalam ms
-  }
-}))
+});
+
 
 app.use(
   passport.session({
