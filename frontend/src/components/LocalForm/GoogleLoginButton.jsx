@@ -3,7 +3,7 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 const GoogleLoginButton = () => {
   const googleLogin = () => {
-    window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/google`;
+    window.location.href = `${import.meta.env.VITE_BACKEND_URL}/api/auth/google`;
   };
 
   return (
