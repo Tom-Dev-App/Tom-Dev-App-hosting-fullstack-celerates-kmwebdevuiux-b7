@@ -75,7 +75,7 @@ app.get('/', (req, res, next) => {
 
 // static routes
 app.use("/public", express.static(path.join(process.cwd(), "public")));
-app.use('/auth', authRoutes)
+app.use('/api/v1/auth', authRoutes)
 // Routing wrapping dengan app.use entry point domain/api/v1/categories/
 app.use('/api/v1/categories', categoryRoutes)
 app.use('/api/v2/categories', categoryRoutesV2)

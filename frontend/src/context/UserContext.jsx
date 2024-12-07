@@ -41,7 +41,7 @@ export const UserProvider = ({children}) => {
 
   const login = async(credentials) => {
     try {
-      const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/login`,
+      const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/login`,
         credentials,
         { withCredentials: true })
       const user = Cookies.get('user')
@@ -80,16 +80,16 @@ export const UserProvider = ({children}) => {
     if(!confirmed) return
 
     clearStorageAndCookies()
-    window.location.href = "http://localhost:5173/signin"
+    window.location.href =  `${import.meta.env.VITE_BASE_URL}/signin` ?? "http://localhost:5173/signin"
   }
 
   const googleLogin = () => {
-    window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/google`
+    window.location.href = `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/google`
   }
 
   const signup = async(credentials) => {
     try {
-      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/register`, credentials, {withCredentials: true})
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/register`, credentials, {withCredentials: true})
       setIsLoggedIn(true)
     } catch (error) {
       console.error(
