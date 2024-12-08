@@ -54,7 +54,18 @@ app.options("*", (req, res) => {
   res.sendStatus(200);
 });
 
+app.use(cookieParser())
 
+app.use(expressSession({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: false,
+    httpOnly: false,
+    maxAge: 60 * 60 * 1000 //dalam ms
+  }
+}))
 app.use(
   passport.session({
     secret: process.env.SESSION_SECRET,

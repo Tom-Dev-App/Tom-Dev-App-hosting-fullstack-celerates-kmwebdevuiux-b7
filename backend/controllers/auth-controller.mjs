@@ -156,7 +156,7 @@ export const googleAuthCallback = (req, res) => {
           maxAge: 3600000, 
         })
 
-      return res.redirect("http://localhost:5173/");
+      return res.redirect((process.env.FRONTEND_URL ?? "http://localhost:5173/"));
 
 
       })
